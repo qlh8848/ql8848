@@ -1,0 +1,74 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: BountyFactory
+    network: sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000" # 部署后替换
+      abi: BountyFactory
+      startBlock: 0 # 部署后替换
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Bounty
+      abis:
+        - name: BountyFactory
+          file: ./abis/BountyFactory.json
+        - name: Bounty
+          file: ./abis/Bounty.json
+      eventHandlers:
+        - event: BountyCreated(indexed address,indexed address,indexed uint256,uint256,uint256)
+          handler: handleBountyCreated
+      file: ./src/bounty-factory.ts
+
+  - kind: ethereum
+    name: ReputationSystem
+    network: sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000" # 部署后替换
+      abi: ReputationSystem
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Reputation
+      abis:
+        - name: ReputationSystem
+          file: ./abis/ReputationSystem.json
+      eventHandlers:
+        - event: ReputationUpdated(indexed address,uint256,uint256,string)
+          handler: handleReputationUpdated
+        - event: ReputationNFTMinted(indexed address,uint256)
+          handler: handleReputationNFTMinted
+      file: ./src/reputation.ts
+
+  - kind: ethereum
+    name: ArbitrationDAO
+    network: sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000" # 部署后替换
+      abi: ArbitrationDAO
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Proposal
+      abis:
+        - name: ArbitrationDAO
+          file: ./abis/ArbitrationDAO.json
+      eventHandlers:
+        - event: ProposalCreated(indexed uint256,indexed uint256,indexed address,string)
+          handler: handleProposalCreated
+        - event: Voted(indexed uint256,indexed address,bool)
+          handler: handleVoted
+        - event: ArbitrationExecuted(indexed uint256,indexed uint256,bool,uint256,uint256)
+          handler: handleArbitrationExecuted
+      file: ./src/arbitration.ts

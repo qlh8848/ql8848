@@ -1,0 +1,45 @@
+type Bounty @entity {
+  id: ID!
+  creator: Bytes!
+  bountyAddress: Bytes!
+  questionIpfsHash: String!
+  reward: BigInt!
+  deadline: BigInt!
+  status: String!
+  solver: Bytes
+  solutionIpfsHash: String
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  bountyId: BigInt!
+}
+
+type Reputation @entity {
+  id: ID! # user address
+  solverScore: BigInt!
+  creatorScore: BigInt!
+  totalSolved: BigInt!
+  totalCreated: BigInt!
+  totalDisputed: BigInt!
+  hasNFT: Boolean!
+}
+
+type Proposal @entity {
+  id: ID!
+  bountyId: BigInt!
+  bountyAddress: Bytes!
+  proposer: Bytes!
+  evidenceIpfsHash: String!
+  yesVotes: BigInt!
+  noVotes: BigInt!
+  deadline: BigInt!
+  executed: Boolean!
+  status: String!
+  createdAt: BigInt!
+}
+
+type PlatformStat @entity {
+  id: ID!
+  totalBounties: BigInt!
+  totalResolved: BigInt!
+  totalRewardPool: BigInt!
+}

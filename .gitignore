@@ -1,0 +1,29 @@
+node_modules/
+cache/
+artifacts/
+typechain-types/
+coverage/
+coverage.json
+.env
+deployments.json
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+
+# Backend
+backend/node_modules/
+backend/.env
+
+# Subgraph
+subgraph/node_modules/
+subgraph/build/
+subgraph/generated/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
